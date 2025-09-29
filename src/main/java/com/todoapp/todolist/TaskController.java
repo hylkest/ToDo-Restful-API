@@ -18,11 +18,11 @@ public class TaskController {
 //    Get mapping zorgt ervoor dat deze methode wordt aangeroepen bij een GET verzoek
     @GetMapping
 //    Hier een functie die een lijst met strings teruggeeft
-    public List<String> getTasks() {
+    public List<Task> getTasks() {
         return List.of(
-                "Takenlijst maken",
-                "Spring boot leren",
-                "Rest API bouwen"
+            new Task(1L, "Takenlijst maken", true),
+            new Task(2L, "Spring boot leren", false),
+            new Task(3L, "REST API bouwen", false)
         );
     }
 }
