@@ -1,11 +1,8 @@
-// "com.todoapp.todolist" staat gelijk aan de map naam
 package com.todoapp.todolist;
 
-// Springboot packages importeren
 import com.todoapp.todolist.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
