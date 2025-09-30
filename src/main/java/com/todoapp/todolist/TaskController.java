@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/tasks")
 public class TaskController {
     private List<Task> tasks = new ArrayList<>(List.of(
-            new Task(1L, "Takenlijst maken", true),
+            new Task(1L, "Takenlijst maken", false),
             new Task(2L, "Spring boot leren", false),
             new Task(3L, "REST API bouwen", false)
     ));
@@ -40,5 +40,15 @@ public class TaskController {
 //    @PathVariable Long id: het stukje {id} uit de URL wordt gekoppeld aan de parameter id
     public void deleteTask(@PathVariable Long id) {
         tasks.removeIf(task -> task.getId().equals(id));
+    }
+
+    @PutMapping("/{id}")
+    public void updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+        for (Task task : tasks) {
+            if (task.getId().equals(id)) {
+                tasks.set(tasks.indexOf(task), updatedTask);
+                return;
+            }
+        }
     }
 }
