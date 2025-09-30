@@ -1,8 +1,18 @@
 package com.todoapp.todolist;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+
+@Entity
 public class Task {
 //    "Long" is een type voor "Lange getallen"
 //    "Private" betekent dat ik het niet kan benaderen buiten de class
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private boolean completed;
@@ -23,6 +33,10 @@ public class Task {
         this.id = id;
         this.title = title;
         this.completed = completed;
+    }
+
+    public Task() {
+
     }
 
 }
