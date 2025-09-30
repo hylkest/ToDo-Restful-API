@@ -2,53 +2,39 @@
 package com.todoapp.todolist;
 
 // Springboot packages importeren
+import com.todoapp.todolist.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-// @RestController geeft json data terug via HTTP
 @RestController
-// @ReuestMapping geeft aan wat het basisadres van de controller is.
-// Dus als iemand het adres bezoekt met /api/tasks komt hij hierin
 @RequestMapping("/api/tasks")
 public class TaskController {
-    private final TaskRepository taskRepository;
+    private final TaskService taskService;
 
-    public TaskController(TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
     }
-//        Get mapping zorgt ervoor dat deze methode wordt aangeroepen bij een GET verzoek
+
     @GetMapping
-//    Hier een functie die een lijst met strings teruggeeft
     public List<Task> getTasks() {
-        return taskRepository.findAll();
+        return taskService.getAllTasks();
     }
 
-//    Bij een POST verzoek naar /api/tasks wordt dit uitgevoerd
     @PostMapping
-//    @RequestBody: vertelt Spring Boot dat de JSON-inhoud van het verzoek moet
-//    worden omgezet naar een Task object
     public Task addTask(@RequestBody Task newTask) {
-        return taskRepository.save(newTask);
+        return taskService.addTask(newTask);
     }
-//  @DeleteMapping("/{id}"): deze methode wordt aangeroepen als iemand
-//  een DELETE-request doet naar /api/tasks/1
-//    @PathVariable Long id: het stukje {id} uit de URL wordt gekoppeld aan de parameter id
+
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Long id) {
-        taskRepository.deleteById(id);
+        taskService.deleteTask(id);
     }
 
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
-        return taskRepository.findById(id)
-                .map(task -> {
-                    task.setTitle(updatedTask.getTitle());
-                    task.setCompleted(updatedTask.isCompleted());
-                    return taskRepository.save(task);
-                })
-                .orElseThrow(() -> new RuntimeException("Task not found with id " + id));
+        return taskService.updateTask(id, updatedTask);
     }
 }
