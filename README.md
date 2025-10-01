@@ -1,7 +1,10 @@
 # Endpoints
 
-### Post
+### POST
+
+**Endpoint:<br>**
 http://localhost:8080/api/tasks/
+<br>
 <br>
 Example JSON:<br>
 `{
@@ -9,13 +12,17 @@ Example JSON:<br>
   "completed": false
 }`
 
-### Delete
+### DELETE
+**Endpoint <br>**
 http://localhost:8080/api/tasks/1
+<br>
 <br>
 It deletes the row
 
-### Put
+### PUT
+**Endpoint <br>**
 http://localhost:8080/api/tasks/1
+<br>
 <br>
 Example JSON:
 <br>
